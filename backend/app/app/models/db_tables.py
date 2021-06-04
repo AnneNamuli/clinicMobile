@@ -29,7 +29,16 @@ class User(Base):
     last_updated_at = Column(DateTime)
 
     items = relationship("Item", back_populates="owner")
-    
+
+
+class Clinic(Base):
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    address = Column(String)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    last_updated_at = Column(DateTime)
+    owner_id = Column(Integer, ForeignKey("user.id"))
+
 
 class Item(Base):
     id = Column(Integer, primary_key=True, index=True)
