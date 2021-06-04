@@ -43,6 +43,18 @@ def create_user(
             status_code=400,
             detail="The user with this username already exists in the system.",
         )
+    user = crud.user.get_by_identifier(db, id_number=user_in.id_number)
+    if user:
+        raise HTTPException(
+            status_code=400,
+            detail="The user with this ID number already exists in the system",
+        )
+    user = crud.user.get_by_phone(db, phone_number=user_in.phone_number)
+    if user:
+        raise HTTPException(
+            status_code=400,
+            detail="The user with this phone number already exists in the system",
+        )
     user = crud.user.create(db, obj_in=user_in)
     if settings.EMAILS_ENABLED and user_in.email:
         send_new_account_email(
@@ -93,6 +105,13 @@ def create_user_open(
     password: str = Body(...),
     email: EmailStr = Body(...),
     full_name: str = Body(None),
+    first_name: str = Body(None),
+    last_name: str = Body(None),
+    phone_number: str = Body(None),
+    date_of_birth: str = Body(None),
+    gender: str = Body(None),
+    role: str = Body(None),
+    id_number: str = Body(None),
 ) -> Any:
     """
     Create new user without the need to be logged in.
@@ -108,7 +127,29 @@ def create_user_open(
             status_code=400,
             detail="The user with this username already exists in the system",
         )
-    user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
+    user = crud.user.get_by_identifier(db, id_number=id_number)
+    if user:
+        raise HTTPException(
+            status_code=400,
+            detail="The user with this ID number already exists in the system",
+        )
+    user = crud.user.get_by_phone(db, phone_number=phone_number)
+    if user:
+        raise HTTPException(
+            status_code=400,
+            detail="The user with this phone number already exists in the system",
+        )
+    user_in = schemas.UserCreate(
+        password=password,
+        email=email,
+        full_name=full_name,
+        first_name=first_name,
+        last_name=last_name,
+        phone_number=phone_number,
+        date_of_birth=date_of_birth,
+        gender=gender,
+        role=role,
+        id_number=id_number)
     user = crud.user.create(db, obj_in=user_in)
     return user
 
