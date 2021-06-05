@@ -35,6 +35,7 @@ class Clinic(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
     address = Column(String)
+    contact_number = Column(String, unique=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     last_updated_at = Column(DateTime)
     owner_id = Column(Integer, ForeignKey("user.id"))
