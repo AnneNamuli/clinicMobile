@@ -41,6 +41,21 @@ class Clinic(Base):
     owner_id = Column(Integer, ForeignKey("user.id"))
 
 
+class ClinicBooking(Base):
+    id = Column(Integer, primary_key=True, index=True)
+    patient_id = Column(Integer, ForeignKey("user.id"))
+    clinic_id = Column(Integer, ForeignKey("clinic.id"))
+    appointment_date = Column(DateTime)
+
+
+class BookingLog(Base):
+    id = Column(Integer, primary_key=True, index=True)
+    patient_id = Column(Integer, ForeignKey("user.id"))
+    clinic_id = Column(Integer, ForeignKey("clinic.id"))
+    event = Column(String)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+
 class Item(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
