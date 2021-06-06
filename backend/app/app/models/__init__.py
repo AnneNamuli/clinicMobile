@@ -1,1 +1,1 @@
-from .db_tables import User, Item
+from .db_tables import *

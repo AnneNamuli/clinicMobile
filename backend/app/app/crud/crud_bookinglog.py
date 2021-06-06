@@ -21,7 +21,7 @@ class CRUDUser(CRUDBase[BookingLog, LogCreate, LogUpdate]):
         db_obj = BookingLog(
             clinic_id=obj_in.clinic_id,
             patient_id=obj_in.patient_id,
-            appointment_date=obj_in.appointment_date
+            event=obj_in.event
         )
         db.add(db_obj)
         db.commit()

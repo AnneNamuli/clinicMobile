@@ -5,9 +5,9 @@ from enum import Enum
 
 
 class Event(str, Enum):
-    created: 'created'
-    updated: 'updated'
-    deleted: 'deleted'
+    created='created'
+    updated='updated'
+    deleted='deleted'
 
 
 # Shared properties
@@ -22,14 +22,14 @@ class LogBase(BaseModel):
 class LogCreate(LogBase):
     clinic_id: str
     patient_id: str
-    appointment_date: datetime
+    event: Event
 
 
 # Properties to receive via API on update
 class LogUpdate(LogBase):
     clinic_id: Optional[int] = None
     patient_id: Optional[int] = None
-    appointment_date: Optional[datetime] = None
+    event: Optional[Event] = None
 
 
 class LogInDBBase(LogBase):

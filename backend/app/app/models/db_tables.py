@@ -3,12 +3,11 @@ import datetime
 
 from sqlalchemy import Boolean, Column, Integer, String, DateTime, \
     ForeignKey, Date
-from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
 
 if TYPE_CHECKING:
-    from .item import Item  # noqa: F401
+    from .db_tables import *  # noqa: F401
 
 
 class User(Base):
@@ -27,8 +26,6 @@ class User(Base):
     is_superuser = Column(Boolean(), default=False)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     last_updated_at = Column(DateTime)
-
-    items = relationship("Item", back_populates="owner")
 
 
 class Clinic(Base):
@@ -55,10 +52,3 @@ class BookingLog(Base):
     event = Column(String)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
-
-class Item(Base):
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("user.id"))
-    owner = relationship("User", back_populates="items")
