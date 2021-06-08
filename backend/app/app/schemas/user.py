@@ -31,7 +31,7 @@ class UserCreate(UserBase):
     phone_number: str
     date_of_birth: str
     gender: str
-    role: str
+    role: Optional[str] = None
     id_number: str
 
 

@@ -48,6 +48,25 @@ def read_patient_bookings_by_clinic_id(
         )
 
 
+@router.get("/Bookings", response_model=List[schemas.BookingRepBase])
+def read_patient_booking_description(
+    current_user: models.User = Depends(deps.get_current_active_user),
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    """
+    Get all patient bookings.
+    """
+
+    if current_user:
+        booking = crud.booking.get_bookings(db)
+        return booking
+
+    else:
+        raise HTTPException(
+            status_code=400, detail="The user doesn't have enough privileges"
+        )
+
+
 @router.get("/{id}", response_model=schemas.Booking)
 def read_patient_bookings_by_pk(
     id: int,

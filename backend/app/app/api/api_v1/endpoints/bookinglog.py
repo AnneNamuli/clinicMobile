@@ -48,7 +48,6 @@ def read_patient_booking_logs_by_clinic_id(
         )
 
 
-
 @router.post("/", response_model=schemas.Log)
 def create_patient_booking_log(
     *,

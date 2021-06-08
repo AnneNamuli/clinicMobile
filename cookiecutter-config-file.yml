@@ -8,7 +8,7 @@ default_context:
   secret_key: 'b823248645244512113e90c20f3386c148dde45d8230ef4ea666756b7ed15ff1'
   first_superuser: 'admin@clinic-mobile.com'
   first_superuser_password: '286b4b7f1611358e980190ec97ec5a49d09b650f949a3eddfba57c5db0acc9dc'
-  backend_cors_origins: '["http://localhost", "http://localhost:4200", "http://localhost:3000", "http://localhost:8080", "https://localhost", "https://localhost:4200", "https://localhost:3000", "https://localhost:8080", "http://dev.clinic-mobile.com", "https://stag.clinic-mobile.com", "https://clinic-mobile.com", "http://local.dockertoolbox.tiangolo.com", "http://localhost.tiangolo.com"]'
+  backend_cors_origins: '["http://localhost", "http://localhost:4200","https://localhost:3000", "http://localhost:3000", "http://localhost:8080", "https://localhost", "https://localhost:4200", "https://localhost:3000", "https://localhost:8080", "http://dev.clinic-mobile.com", "https://stag.clinic-mobile.com", "https://clinic-mobile.com", "http://local.dockertoolbox.tiangolo.com", "http://localhost.tiangolo.com"]'
   smtp_port: '587'
   smtp_host: ''
   smtp_user: ''

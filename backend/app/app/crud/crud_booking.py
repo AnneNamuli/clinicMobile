@@ -3,13 +3,17 @@ from typing import Any, Dict, Optional, Union
 from sqlalchemy.orm import Session
 
 from app.crud.base import CRUDBase
-from app.models.db_tables import ClinicBooking
+from app.models.db_tables import ClinicBooking, User, Clinic
 from app.schemas.booking import BookingCreate, BookingUpdate
 
 
 class CRUDUser(CRUDBase[ClinicBooking, BookingCreate, BookingUpdate]):
     def get_by_id(self, db: Session, *, id: int) -> Optional[ClinicBooking]:
         return db.query(ClinicBooking).filter(ClinicBooking.id == id).first()
+
+    def get_bookings(self, db: Session):
+        return db.query(ClinicBooking.id, User.full_name, User.phone_number, User.date_of_birth, Clinic.name, Clinic.address,
+                        ClinicBooking.appointment_date).filter(User.id == ClinicBooking.patient_id).filter(Clinic.id == ClinicBooking.clinic_id).all()
 
     def get_by_clinic_id(self, db: Session, *, clinic_id: int) -> Optional[ClinicBooking]:
         return db.query(ClinicBooking).filter(ClinicBooking.clinic_id == clinic_id).all()
